@@ -135,8 +135,11 @@ class HBNBCommand(cmd.Cmd):
             if list_kwargs is not {}:
                 for key, value in list_kwargs.items():
                     try: 
-                        getattr(new_instance, key)
-                        setattr(new_instance, key, value)
+                        getattr(new_instance,
+                                key.replace("\"", "").replace("_", " "))
+                        setattr(new_instance, 
+                                key.replace("\"", "").replace("_", " "),
+                                value.replace("\"", "").replace("_", " "))
                     except Exception:
                         pass
 
