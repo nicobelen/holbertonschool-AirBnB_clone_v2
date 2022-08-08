@@ -135,8 +135,7 @@ class HBNBCommand(cmd.Cmd):
             if list_kwargs is not {}:
                 for key, value in list_kwargs.items():
                     try: 
-                        getattr(new_instance,
-                                key.replace("\"", "").replace("_", " "))
+                        getattr(new_instance, key)
                         value = value.replace("\"", "").replace("_", " ")
                         if key in HBNBCommand.types:
                             value = HBNBCommand.types[key](value)
