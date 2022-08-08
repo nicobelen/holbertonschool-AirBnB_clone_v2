@@ -137,6 +137,8 @@ class HBNBCommand(cmd.Cmd):
                     try: 
                         getattr(new_instance,
                                 key.replace("\"", "").replace("_", " "))
+                        if key in HBNBCommand.types:
+                            value = HBNBCommand.types[key](value)
                         setattr(new_instance, 
                                 key.replace("\"", "").replace("_", " "),
                                 value.replace("\"", "").replace("_", " "))
