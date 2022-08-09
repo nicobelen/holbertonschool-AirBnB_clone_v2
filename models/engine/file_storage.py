@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 import json
+import os
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -24,15 +25,18 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls is not None:
-            with open(FileStorage.__file_path, 'w') as f:
-                temp = {}
-                temp.update(FileStorage.__objects)
-                for key, val in temp.items():
-                    if cls == type(val):
-                        temp[key] = val
-                return temp
-        return self.__objects
+        try:
+            if cls is not None:
+                with open(FileStorage.__file_path, 'r') as f:
+                    temp = {}
+                    temp.update(FileStorage.__objects)
+                    for key, val in temp.items():
+                        if cls == type(val):
+                            temp[key] = val
+                    return temp
+            return self.__objects
+        except FileNotFoundError:
+            return {}
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -49,25 +53,41 @@ class FileStorage:
 
     def reload(self):
         """Loads storage dictionary from file"""
-
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
-                temp = json.load(f)
-                for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                if f.read(1) != "":
+                    try:  # All good, load json :) --
+                        f.seek(0)  # back to pos. 1 of file --
+                        temp = json.load(f)
+                        for key, val in temp.items():
+                            self.all()[key] = classes[val['__class__']](**val)
+                        return temp
+
+                    except json.decoder.JSONDecodeError:
+                        raise
+                else:
+                    return {}
+                    pass  # File exists, but it's empty --
+
         except FileNotFoundError:
-            pass
+            return {}
+            pass  # File not found --
 
     def delete(self, obj=None):
         """deletes obj from __objects if it's insida - if obj is equal to
          None, the method should not do anything"""
         if obj is not None:
-            if obj in self.__objects:
+            if obj in self.__objects.values():
                 with open(FileStorage.__file_path, 'w') as f:
                     temp = {}
-                    temp.update(FileStorage.__objects)
+                    temp.update(FileStorage.__objects)   # esto es inseguro, 
+                    # tendriamos que poder reciclar la funcion reload para que 
+                    # handlee bien los archivos corruptos y no existentes
                     key = obj.__class__.__name__ + '.' + obj.id
-                    if (key in temp):
+                    if (key in temp.keys()):
                         del temp[key]
-                    json.dump(temp, f)
+                        print('Hasta aca, FLAMA --')
+                    self.save()  # esto de alguna forma habria que hacerlo andar
+                    # json.dump(temp, f)
+
