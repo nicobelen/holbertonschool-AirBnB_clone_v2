@@ -67,6 +67,6 @@ class FileStorage:
                 temp = {}
                 temp.update(FileStorage.__objects)
                 key = obj.__class__.__name__ + '.' + obj.id
-                if (key in self.__objects.keys()):
-                    del self.__objects[key]
+                if (key in temp):
+                    del temp[key]
                 json.dump(temp, f)
