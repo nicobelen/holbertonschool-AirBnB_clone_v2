@@ -63,10 +63,11 @@ class FileStorage:
         """deletes obj from __objects if it's insida - if obj is equal to
          None, the method should not do anything"""
         if obj is not None:
-            with open(FileStorage.__file_path, 'w') as f:
-                temp = {}
-                temp.update(FileStorage.__objects)
-                key = obj.__class__.__name__ + '.' + obj.id
-                if (key in temp):
-                    del temp[key]
-                json.dump(temp, f)
+            if obj in self.__objects:
+                with open(FileStorage.__file_path, 'w') as f:
+                    temp = {}
+                    temp.update(FileStorage.__objects)
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    if (key in temp):
+                        del temp[key]
+                    json.dump(temp, f)
