@@ -24,7 +24,7 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls in classes and cls is not None:
+        if cls is not None:
             with open(FileStorage.__file_path, 'w') as f:
                 temp = {}
                 temp.update(FileStorage.__objects)
@@ -62,10 +62,11 @@ class FileStorage:
     def delete(self, obj=None):
         """deletes obj from __objects if it's insida - if obj is equal to
          None, the method should not do anything"""
-        with open(FileStorage.__file_path, 'w') as f:
-            temp = {}
-            temp.update(FileStorage.__objects)
-            key = obj.__class__.__name__ + '.' + obj.id
-            if (key in self.__objects.keys() and key is not None):
-                del self.__objects[key]
-            json.dump(temp, f)
+        if obj is not None:
+            with open(FileStorage.__file_path, 'w') as f:
+                temp = {}
+                temp.update(FileStorage.__objects)
+                key = obj.__class__.__name__ + '.' + obj.id
+                if (key in self.__objects.keys()):
+                    del self.__objects[key]
+                json.dump(temp, f)
