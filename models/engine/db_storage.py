@@ -56,9 +56,7 @@ class DBStorage():
             raise
 
     def reload(self):
-        self.__engine = create_engine('mysql+mysqldb://\
-                                {user}:{passwd}\
-                                @{host}/{db}',
+        self.__engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@{host}/{db}',
                                 pool_pre_ping=True)
         session_factory = sessionmaker(self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session_factory)
