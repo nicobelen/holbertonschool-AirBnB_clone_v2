@@ -34,7 +34,8 @@ class FileStorage:
                         if cls == type(val):
                             temp[key] = val
                     return temp
-            return self.__objects
+            else:        
+                return self.__objects
         except FileNotFoundError:
             return {}
 
@@ -89,7 +90,6 @@ class FileStorage:
                     key = obj.__class__.__name__ + '.' + obj.id
                     if (key in temp.keys()):
                         del temp[key]
-                        print('Hasta aca, FLAMA --')
                     json.dump(temp, f)
                     self.save()  # esto de alguna forma habria que hacerlo andar
 
