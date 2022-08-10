@@ -6,7 +6,6 @@ from sqlalchemy import String, Column
 from sqlalchemy.orm import relationship
 from os import getenv
 from models.city import City
-from models.__init__ import storage
 
 class State(BaseModel, Base):
     """ State class """
@@ -18,6 +17,7 @@ class State(BaseModel, Base):
     else:
         @property  # ??
         def cities(self):
+            from models.__init__ import storage
             city_dic = storage.all(City)
             city_list = []
             for city in city_dic.items():
