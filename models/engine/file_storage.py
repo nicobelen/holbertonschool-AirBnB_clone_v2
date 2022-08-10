@@ -30,9 +30,10 @@ class FileStorage:
                 with open(FileStorage.__file_path, 'r') as f:
                     temp = {}
                     temp.update(FileStorage.__objects)
+                    _class = key.split(".")
                     for key, val in temp.items():
-                        if cls == type(val):
-                            temp[key] = val
+                        if _class == cls.__name__:
+                            temp[key] = self.__objects[key]
                     return temp
             except FileNotFoundError:
                 return self.__objects
@@ -79,7 +80,19 @@ class FileStorage:
         """deletes obj from __objects if it's insida - if obj is equal to
          None, the method should not do anything"""
         if obj is not None:
-            for key,value in self.__objects.items():
-                if obj == value:
-                    pass
-            self.__objects.pop[key]
+            try:
+                with open(FileStorage.__file_path, 'w') as f:
+                    temp = {}
+                    temp = self.reload(FileStorage.__objects)
+                    #update(FileStorage.__objects)
+                    # # esto es inseguro, 
+                    # tendriamos que poder reciclar la funcion reload para que 
+                    # handlee bien los archivos corruptos y no existentes
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    if (key in temp.keys()):
+                        del temp[key]
+                    json.dump(temp, f)
+                    self.save()  # esto de alguna forma habria que hacerlo andar
+            except Exception:
+                pass
+
