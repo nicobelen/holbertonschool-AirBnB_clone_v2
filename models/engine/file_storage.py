@@ -81,8 +81,6 @@ class FileStorage:
         if obj is not None:
             try:
                 with open(FileStorage.__file_path, 'w') as f:
-                    temp = {}
-                    temp = self.reload(FileStorage.__objects)
                     #update(FileStorage.__objects)
                     # # esto es inseguro, 
                     # tendriamos que poder reciclar la funcion reload para que 
@@ -92,7 +90,6 @@ class FileStorage:
                         if obj == value:
                             pass
                     self.__objects.pop[key]
-                    json.dump(temp, f)
                     self.save()  # esto de alguna forma habria que hacerlo andar
             except Exception:
                 pass
