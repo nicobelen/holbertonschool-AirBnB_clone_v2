@@ -29,10 +29,12 @@ class FileStorage:
             try:
                 with open(FileStorage.__file_path, 'r') as f:
                     temp = {}
+                    temp.update(FileStorage.__objects)
                     for key, val in self.__objects:
                         _class = key.split(".")
                         if _class[0] == cls.__name__:
                             temp[key] = self.__objects[key]
+                    json.dump(temp, f)
                     return temp
             except FileNotFoundError:
                 return self.__objects
