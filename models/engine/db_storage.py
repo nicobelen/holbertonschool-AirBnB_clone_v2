@@ -32,8 +32,8 @@ class DBStorage():
         if cls is not None:
             query = self.__session.query(cls).all()
         else:
-            query = self.__session.query(self.classes).all()
-
+            query = self.__session.query()
+        
         query_dict = {}
         for key in query:
             _class = key.split(".")[0]
