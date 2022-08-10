@@ -80,17 +80,11 @@ class FileStorage:
          None, the method should not do anything"""
         if obj is not None:
             try:
-                with open(FileStorage.__file_path, 'w') as f:
-                    #update(FileStorage.__objects)
-                    # # esto es inseguro, 
-                    # tendriamos que poder reciclar la funcion reload para que 
-                    # handlee bien los archivos corruptos y no existentes
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    for key,value in self.__objects.items():
-                        if obj == value:
-                            pass
-                    self.__objects.pop[key]
-                    self.save()  # esto de alguna forma habria que hacerlo andar
+                for key,value in self.__objects.items():
+                    if obj == value:
+                        pass
+                self.__objects.pop[key]
+                self.save()  # esto de alguna forma habria que hacerlo andar
             except Exception:
                 pass
 
