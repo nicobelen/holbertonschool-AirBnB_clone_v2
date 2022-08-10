@@ -30,8 +30,8 @@ class FileStorage:
                 with open(FileStorage.__file_path, 'r') as f:
                     temp = {}
                     temp.update(FileStorage.__objects)
-                    _class = key.split(".")
                     for key, val in temp.items():
+                        _class = key.split(".")
                         if _class == cls.__name__:
                             temp[key] = self.__objects[key]
                     return temp
