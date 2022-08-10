@@ -26,20 +26,26 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
-            try:
-                with open(FileStorage.__file_path, 'r') as f:
-                    temp = {}
-                    temp.update(FileStorage.__objects)
-                    for key, val in self.__objects:
-                        _class = key.split(".")
-                        if _class[0] == cls.__name__:
-                            temp[key] = self.__objects[key]
-                    json.dump(temp, f)
-                    return temp
-            except FileNotFoundError:
-                return self.__objects
-        else:        
+            temp = dict()
+            for key in self.__objects:
+                _class = key.split(".")
+                if _class[0] == cls.__name__:
+                    temp[key] = self.__objects[key]
+            return temp
+        else:
             return self.__objects
+        # try:
+        #     if cls is not None:
+        #         with open(FileStorage.__file_path, 'r') as f:
+        #             temp = {}
+        #             temp.update(FileStorage.__objects)
+        #             for key, val in temp.items():
+        #                 if cls == type(val):
+        #                     temp[key] = val
+        #             return temp
+        #     return self.__objects
+        # except FileNotFoundError:
+        #     return {}
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -81,19 +87,23 @@ class FileStorage:
         """deletes obj from __objects if it's insida - if obj is equal to
          None, the method should not do anything"""
         if obj is not None:
-            try:
-                with open(FileStorage.__file_path, 'w') as f:
-                    temp = {}
-                    temp = self.reload(FileStorage.__objects)
-                    #update(FileStorage.__objects)
-                    # # esto es inseguro, 
-                    # tendriamos que poder reciclar la funcion reload para que 
-                    # handlee bien los archivos corruptos y no existentes
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    if (key in temp.keys()):
-                        del temp[key]
-                    json.dump(temp, f)
-                    self.save()  # esto de alguna forma habria que hacerlo andar
-            except Exception:
-                pass
+            for key, value in self.__objects.items():
+                if obj == value:
+                    pass
+            self.__objects.pop(key)
+        # if obj is not None:
+        #     if obj in self.__objects.values():
+        #         with open(FileStorage.__file_path, 'w') as f:
+        #             temp = {}
+        #             temp = self.reload(FileStorage.__objects)
+        #             #update(FileStorage.__objects)
+        #             # # esto es inseguro, 
+        #             # tendriamos que poder reciclar la funcion reload para que 
+        #             # handlee bien los archivos corruptos y no existentes
+        #             key = obj.__class__.__name__ + '.' + obj.id
+        #             if (key in temp.keys()):
+        #                 del temp[key]
+        #                 print('Hasta aca, FLAMA --')
+        #             json.dump(temp, f)
+        #             self.save()  # esto de alguna forma habria que hacerlo andar
 
