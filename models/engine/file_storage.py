@@ -37,7 +37,7 @@ class FileStorage:
             else:        
                 return self.__objects
         except FileNotFoundError:
-            return {}
+            return self.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -79,7 +79,7 @@ class FileStorage:
         """deletes obj from __objects if it's insida - if obj is equal to
          None, the method should not do anything"""
         if obj is not None:
-            if obj in self.__objects.values():
+            try:
                 with open(FileStorage.__file_path, 'w') as f:
                     temp = {}
                     temp = self.reload(FileStorage.__objects)
@@ -92,4 +92,6 @@ class FileStorage:
                         del temp[key]
                     json.dump(temp, f)
                     self.save()  # esto de alguna forma habria que hacerlo andar
+            except Exception:
+                pass
 
