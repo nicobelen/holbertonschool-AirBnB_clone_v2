@@ -25,8 +25,8 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        try:
-            if cls is not None:
+        if cls is not None:
+            try:
                 with open(FileStorage.__file_path, 'r') as f:
                     temp = {}
                     temp.update(FileStorage.__objects)
@@ -34,9 +34,9 @@ class FileStorage:
                         if cls == type(val):
                             temp[key] = val
                     return temp
-            else:        
+            except FileNotFoundError:
                 return self.__objects
-        except FileNotFoundError:
+        else:        
             return self.__objects
 
     def new(self, obj):
@@ -88,8 +88,10 @@ class FileStorage:
                     # tendriamos que poder reciclar la funcion reload para que 
                     # handlee bien los archivos corruptos y no existentes
                     key = obj.__class__.__name__ + '.' + obj.id
-                    if (key in temp.keys()):
-                        del temp[key]
+                    for key,value in self.__objects.items():
+                        if obj == value:
+                            pass
+                    self.__objects.pop[key]
                     json.dump(temp, f)
                     self.save()  # esto de alguna forma habria que hacerlo andar
             except Exception:
