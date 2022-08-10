@@ -4,7 +4,6 @@ import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime
-from models.__init__ import storage
 
 Base = declarative_base()
 
@@ -73,4 +72,5 @@ class BaseModel:
         return dictionary
 
     def delete(self):
+        from models.__init__ import storage
         storage.delete(self)
