@@ -56,6 +56,10 @@ class DBStorage():
             raise
 
     def reload(self):
+        user = 'hbnb_dev'
+        passwd = 'hbnb_dev_pwd'
+        host = 'localhost'
+        db = 'hbnb_dev_db'
         self.__engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@{host}/{db}',
                                 pool_pre_ping=True)
         session_factory = sessionmaker(self.__engine, expire_on_commit=False)
