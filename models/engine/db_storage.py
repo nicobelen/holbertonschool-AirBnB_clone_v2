@@ -32,8 +32,8 @@ class DBStorage():
         if cls is not None:
             query = self.__session.query(cls).all()
         else:
-            query = self.__session.query()
-        
+            query = self.__session.query(self.classes).all()
+
         query_dict = {}
         for key in query:
             _class = key.split(".")[0]
@@ -62,8 +62,7 @@ class DBStorage():
         db = 'hbnb_dev_db'
         self.__engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@{host}/{db}',
                                 pool_pre_ping=True)
-        # session_factory = sessionmaker(self.__engine, expire_on_commit=False)
-        # self.__session = scoped_session(session_factory)
-        self.__session = Session(bind=self.__engine)
+        session_factory = sessionmaker(self.__engine, expire_on_commit=False)
+        self.__session = scoped_session(session_factory)
         Base.metadata.create_all(self.__engine)
         
