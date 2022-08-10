@@ -62,7 +62,8 @@ class DBStorage():
         db = 'hbnb_dev_db'
         self.__engine = create_engine(f'mysql+mysqldb://{user}:{passwd}@{host}/{db}',
                                 pool_pre_ping=True)
-        session_factory = sessionmaker(self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(session_factory)
+        # session_factory = sessionmaker(self.__engine, expire_on_commit=False)
+        # self.__session = scoped_session(session_factory)
+        self.__session = Session(bind=self.__engine)
         Base.metadata.create_all(self.__engine)
         
