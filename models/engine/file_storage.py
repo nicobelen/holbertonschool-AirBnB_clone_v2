@@ -79,12 +79,8 @@ class FileStorage:
         """deletes obj from __objects if it's insida - if obj is equal to
          None, the method should not do anything"""
         if obj is not None:
-            try:
-                for key,value in self.__objects.items():
-                    if obj == value:
-                        pass
-                self.__objects.pop[key]
-                self.save()  # esto de alguna forma habria que hacerlo andar
-            except Exception:
-                pass
-
+            for key,value in self.__objects.items():
+                if obj == value:
+                    pass
+            self.__objects.pop[key]
+            self.save()  # esto de alguna forma habria que hacerlo andar
