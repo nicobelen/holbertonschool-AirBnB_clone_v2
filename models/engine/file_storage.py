@@ -81,13 +81,15 @@ class FileStorage:
             if obj in self.__objects.values():
                 with open(FileStorage.__file_path, 'w') as f:
                     temp = {}
-                    temp.update(FileStorage.__objects)   # esto es inseguro, 
+                    temp = self.reload(FileStorage.__objects)
+                    #update(FileStorage.__objects)
+                    # # esto es inseguro, 
                     # tendriamos que poder reciclar la funcion reload para que 
                     # handlee bien los archivos corruptos y no existentes
                     key = obj.__class__.__name__ + '.' + obj.id
                     if (key in temp.keys()):
                         del temp[key]
                         print('Hasta aca, FLAMA --')
+                    json.dump(temp, f)
                     self.save()  # esto de alguna forma habria que hacerlo andar
-                    # json.dump(temp, f)
 
