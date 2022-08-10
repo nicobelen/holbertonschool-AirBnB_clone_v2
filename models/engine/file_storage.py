@@ -83,4 +83,3 @@ class FileStorage:
                 if obj == value:
                     pass
             self.__objects.pop[key]
-            self.save()  # esto de alguna forma habria que hacerlo andar
