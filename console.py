@@ -226,7 +226,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             for k, v in storage.all(args).items():
-                if k.__class__ == args:
+                if k.__class__.__name__ == args:
                     print_list.append(str(v))
         else:
             for k, v in storage.all().items():
