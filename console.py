@@ -139,6 +139,7 @@ class HBNBCommand(cmd.Cmd):
                         if key in HBNBCommand.types:
                             value = HBNBCommand.types[key](value)
                         setattr(new_instance, key, value)
+                    storage.new(new_instance)
                 except Exception:
                     pass
 
