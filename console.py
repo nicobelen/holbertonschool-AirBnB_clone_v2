@@ -133,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
             new_instance = HBNBCommand.classes[class_name]()
             if list_kwargs is not {}:
                 print("KWARGS NOT EMPTY")
-                for key, value in list_kwargs.items():
+                for key, value in list_kwargs:
                     print("INSIDE FOR LOOP")
                     try: 
                         getattr(new_instance, key)
