@@ -26,9 +26,12 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
+            print('CLS NOT NONE')
             temp = dict()
             for key in self.__objects:
-                if cls == key.values()['__class__']:
+                print('RECORRIENDO __OBJECTS')
+                if cls in self.__objects.__class__.__name__:
+                    print('CLS IN __OBJECTS')
                     temp[key] = self.__objects[key]
             return temp
         else:
