@@ -26,26 +26,26 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
-        #     temp = dict()
-        #     for key in self.__objects:
-        #         _class = key.split(".")
-        #         if _class[0] == cls.__name__:
-        #             temp[key] = self.__objects[key]
-        #     return temp
-        # else:
-        #     return self.__objects
-            try:
-                if cls is not None:
-                    with open(FileStorage.__file_path, 'r') as f:
-                        temp = {}
-                        temp.update(FileStorage.__objects)
-                        for key, val in temp.items():
-                            if cls == type(val):
-                                temp[key] = val
-                        return temp
-                return self.__objects
-            except Exception:
-                return self.__objects
+            temp = dict()
+            for key in self.__objects:
+                _class = key.split(".")
+                if _class[0] == cls.__name__:
+                    temp[key] = self.__objects[key]
+            return temp
+        else:
+            return self.__objects
+            # try:
+            #     if cls is not None:
+            #         with open(FileStorage.__file_path, 'r') as f:
+            #             temp = {}
+            #             temp.update(FileStorage.__objects)
+            #             for key, val in temp.items():
+            #                 if cls == type(val):
+            #                     temp[key] = val
+            #             return temp
+            #     return self.__objects
+            # except Exception:
+            #     return self.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
