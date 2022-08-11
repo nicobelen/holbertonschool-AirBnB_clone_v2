@@ -118,11 +118,9 @@ class HBNBCommand(cmd.Cmd):
         class_name = args.split()[0]
         kwargs_in = args.split()[1:]
         list_kwargs = {}
-        print(class_name)
         for arg in kwargs_in:
             k, v = arg.split("=")[0:2]
             list_kwargs[k] = v
-        print(list_kwargs)
 
         if not class_name:
             print("** class name missing **")
@@ -138,7 +136,8 @@ class HBNBCommand(cmd.Cmd):
                         getattr(new_instance, key)
                         value = value.replace("\"", "").replace("_", " ")
                         if key in HBNBCommand.types:
-                            value = HBNBCommand.types[key](value)
+                            value = HBNBCommand.types[key](value)\
+                        print('Is it getting here?')
                         setattr(new_instance, key, value)
                     except Exception:
                         pass
