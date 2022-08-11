@@ -28,7 +28,7 @@ class FileStorage:
         if cls is not None:
             temp = dict()
             for key in self.__objects:
-                if cls == key.__class__.__name__:
+                if cls == key.values()['__class__']:
                     temp[key] = self.__objects[key]
             return temp
         else:
