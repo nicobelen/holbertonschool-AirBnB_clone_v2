@@ -35,7 +35,7 @@ class FileStorage:
                     print('CLS IN __OBJECTS')
                     print(type(self.__objects))
                     temp.append(key)
-            return temp
+            return dict(temp)
         else:
             return self.__objects
             # try:
