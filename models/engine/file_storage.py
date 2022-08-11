@@ -29,8 +29,9 @@ class FileStorage:
             print('CLS NOT NONE')
             temp = dict()
             for key in self.__objects:
+                _class = key.split(".")[0]
                 print('RECORRIENDO __OBJECTS')
-                if cls in classes:
+                if cls == _class:
                     print('CLS IN __OBJECTS')
                     temp[key] = self.__objects[key]
             return temp
