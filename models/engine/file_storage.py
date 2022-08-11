@@ -65,25 +65,30 @@ class FileStorage:
     def reload(self):
         """Loads storage dictionary from file"""
         try:
-            temp = {}
-            with open(FileStorage.__file_path, 'r') as f:
-                if f.read(1) != "":
-                    try:  # All good, load json :) --
-                        f.seek(0)  # back to pos. 1 of file --
-                        temp = json.load(f)
-                        for key, val in temp.items():
-                            self.all()[key] = classes[val['__class__']](**val)
-                        return temp
+            with open(self.__file_path, 'r', encoding="utf-8") as f:
+                self.__objects = json.loads(f.read())
+        except Exception:
+            pass
+        # try:
+        #     temp = {}
+        #     with open(FileStorage.__file_path, 'r') as f:
+        #         if f.read(1) != "":
+        #             try:  # All good, load json :) --
+        #                 f.seek(0)  # back to pos. 1 of file --
+        #                 temp = json.load(f)
+        #                 for key, val in temp.items():
+        #                     self.all()[key] = classes[val['__class__']](**val)
+        #                 return temp
 
-                    except json.decoder.JSONDecodeError:
-                        raise
-                else:
-                    return {}
-                    pass  # File exists, but it's empty --
+        #             except json.decoder.JSONDecodeError:
+        #                 raise
+        #         else:
+        #             return {}
+        #             pass  # File exists, but it's empty --
 
-        except FileNotFoundError:
-            return {}
-            pass  # File not found --
+        # except FileNotFoundError:
+        #     return {}
+        #     pass  # File not found --
 
     def delete(self, obj=None):
         """deletes obj from __objects if it's insida - if obj is equal to
