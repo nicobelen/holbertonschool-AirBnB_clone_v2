@@ -34,7 +34,7 @@ class FileStorage:
                 if cls == _class:
                     print('CLS IN __OBJECTS')
                     print(type(self.__objects))
-                    temp[key] = self.__objects[key]
+                    temp.update(key)
             return temp
         else:
             return self.__objects
