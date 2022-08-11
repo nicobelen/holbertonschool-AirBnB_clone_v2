@@ -3,7 +3,7 @@
 """
 from models.engine.file_storage import FileStorage
 from models.state import State
-
+from models.city import City
 fs = FileStorage()
 
 # All States
@@ -16,6 +16,10 @@ for state_key in all_states.keys():
 new_state = State()
 new_state.name = "California"
 fs.new(new_state)
+fs.save()
+new_city = City()
+new_city.name = 'San Francisco'
+fs.new(new_city)
 fs.save()
 print("New State: {}".format(new_state))
 

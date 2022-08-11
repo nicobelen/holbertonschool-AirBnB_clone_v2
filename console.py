@@ -129,18 +129,15 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            print("INSIDE ELSE")
             new_instance = HBNBCommand.classes[class_name]()
             if list_kwargs is not {}:
-                print("KWARGS NOT EMPTY")
-                for key, value in list_kwargs:
-                    print("INSIDE FOR LOOP")
+                for key, value in list_kwargs.items():
                     try: 
+                        print(key,value)
                         getattr(new_instance, key)
                         value = value.replace("\"", "").replace("_", " ")
                         if key in HBNBCommand.types:
                             value = HBNBCommand.types[key](value)
-                        print('Is it getting here?')
                         setattr(new_instance, key, value)
                     except Exception:
                         pass
