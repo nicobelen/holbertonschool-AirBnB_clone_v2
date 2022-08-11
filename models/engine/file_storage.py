@@ -27,7 +27,7 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
             print('CLS NOT NONE')
-            temp = dict()
+            temp = {}
             for key in self.__objects:
                 _class = key.split(".")[0]
                 print('RECORRIENDO __OBJECTS')
