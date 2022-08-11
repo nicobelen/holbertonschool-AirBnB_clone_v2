@@ -36,7 +36,7 @@ class FileStorage:
                     print('CLS IN __OBJECTS')
                     print(type(self.__objects))
                     print('KEY: ', key)
-                    temp[key] = value
+                    temp[key] = self.__objects[key]
             return temp
         else:
             return self.__objects
