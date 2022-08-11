@@ -7,6 +7,8 @@ from sqlalchemy.orm import relationship
 from models.place import Place
 from os import getenv
 
+from .review import Review
+
 
 class User(BaseModel, Base):
     """This class defines a user by various attributes"""
@@ -18,6 +20,7 @@ class User(BaseModel, Base):
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         places = relationship('Place', cascade='all, delete', backref='user')
+        reviews = relationship('Review', cascade='all, delete', backref='user')
     else:
         @property  # ??
         def Places(self):
@@ -29,3 +32,14 @@ class User(BaseModel, Base):
                     place_list.append(place.name)
 
             return place_list
+
+        @property  # ??
+        def Reviews(self):
+            from models.__init__ import storage
+            review_dic = storage.all(Review)
+            review_list = []
+            for review in review_dic.items():
+                if review.values()['state.id'] == self.id:
+                    review_list.append(review.name)
+
+            return review_list

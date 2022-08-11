@@ -4,6 +4,9 @@ from email.policy import default
 from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import String, Column, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
+from models.review import Review
+from os import getenv
 
 
 
@@ -21,3 +24,17 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        reviews = relationship('Review', cascade='all, delete', backref='place')
+    else:
+        @property  # ??
+        def Reviews(self):
+            from models.__init__ import storage
+            review_dic = storage.all(Review)
+            review_list = []
+            for review in review_dic.items():
+                if review.values()['state.id'] == self.id:
+                    review_list.append(review.name)
+
+            return review_list
