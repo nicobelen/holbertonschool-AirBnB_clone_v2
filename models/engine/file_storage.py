@@ -30,7 +30,7 @@ class FileStorage:
             temp = dict()
             for key in self.__objects:
                 print('RECORRIENDO __OBJECTS')
-                if cls in self.__objects.__class__.__name__:
+                if cls in classes:
                     print('CLS IN __OBJECTS')
                     temp[key] = self.__objects[key]
             return temp
