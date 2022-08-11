@@ -131,16 +131,16 @@ class HBNBCommand(cmd.Cmd):
         else:
             new_instance = HBNBCommand.classes[class_name]()
             if list_kwargs is not {}:
-                for key, value in list_kwargs.items():
-                    try: 
+                try: 
+                    for key, value in list_kwargs.items():
                         print(key,value)
                         getattr(new_instance, key)
                         value = value.replace("\"", "").replace("_", " ")
                         if key in HBNBCommand.types:
                             value = HBNBCommand.types[key](value)
                         setattr(new_instance, key, value)
-                    except Exception:
-                        pass
+                except Exception:
+                    pass
 
         storage.save()
         print(new_instance.id)
