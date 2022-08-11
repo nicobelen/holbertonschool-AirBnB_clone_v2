@@ -20,7 +20,7 @@ from models.base_model import Base
 class DBStorage():
     __engine = None
     __session = None
-    classes = {'State' : State, 'City' : City}
+    classes = {'State' : State, 'City' : City, 'User' : User}
 
 
     def __init__(self):
