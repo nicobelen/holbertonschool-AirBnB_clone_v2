@@ -136,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
                         getattr(new_instance, key)
                         value = value.replace("\"", "").replace("_", " ")
                         if key in HBNBCommand.types:
-                            value = HBNBCommand.types[key](value)\
+                            value = HBNBCommand.types[key](value)
                         print('Is it getting here?')
                         setattr(new_instance, key, value)
                     except Exception:
