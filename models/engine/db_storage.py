@@ -39,7 +39,7 @@ class DBStorage():
         for key in query:
             # _class = query.split(".")[0]
             if cls in self.classes:
-                query_dict[key] = query[key]
+                query_dict[key] = key
         return query_dict
 
     def new(self, obj):
