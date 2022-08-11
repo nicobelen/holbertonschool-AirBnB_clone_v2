@@ -44,8 +44,8 @@ class FileStorage:
                                 temp[key] = val
                         return temp
                 return self.__objects
-            except FileNotFoundError:
-                return {}
+            except Exception:
+                return self.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
