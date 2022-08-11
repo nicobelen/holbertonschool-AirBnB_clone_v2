@@ -139,10 +139,10 @@ class HBNBCommand(cmd.Cmd):
                             value = HBNBCommand.types[key](value)
                         print('Is it getting here?')
                         setattr(new_instance, key, value)
+                        storage.save()
                     except Exception:
                         pass
 
-        storage.save()
         print(new_instance.id)
 
     def help_create(self):
