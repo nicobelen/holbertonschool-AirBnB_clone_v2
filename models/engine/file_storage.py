@@ -29,7 +29,7 @@ class FileStorage:
             temp = dict()
             for key in self.__objects:
                 _class = key.split(".")
-                if _class[0] == classes:
+                if _class[0] in classes:
                     temp[key] = self.__objects[key]
             return temp
         else:
