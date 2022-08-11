@@ -33,7 +33,8 @@ class FileStorage:
                 print('RECORRIENDO __OBJECTS')
                 if cls == _class:
                     print('CLS IN __OBJECTS')
-                    temp[key] = key
+                    print(self.__objects[key])
+                    temp[key] = self.__objects[key]
             return temp
         else:
             return self.__objects
