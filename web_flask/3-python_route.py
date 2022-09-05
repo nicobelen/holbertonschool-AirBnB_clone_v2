@@ -26,7 +26,7 @@ def text(text):
 
 @app.route("/python/")
 @app.route("/python/<text>")
-def text(text="is cool"):
+def python(text="is cool"):
     string = text.replace("_", " ")
     return "Python {}".format(string)
 
