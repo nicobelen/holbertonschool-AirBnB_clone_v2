@@ -25,11 +25,8 @@ def text(text):
 
 
 @app.route("/python/<text>")
-def text(text):
-    if (text == ""):
-        string = "is cool"
-    else:
-        string = text.replace("_", " ")
+def text(text="is cool"):
+    string = text.replace("_", " ")
     return "Python {}".format(string)
 
 
