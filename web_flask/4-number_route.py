@@ -31,7 +31,7 @@ def python(text="is cool"):
     return "Python {}".format(string)
 
 
-@app.route("/number/<n:int>")
+@app.route("/number/<int:n>")
 def isnumber(n):
     return "{} is a number".format(n)
 
